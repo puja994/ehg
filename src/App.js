@@ -1,25 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const rangeEnd = 256;
+const App = () => {
+	
+	const [steps, setSteps] = useState([]);
+	const [colorClicked, setColorClicked] = useState([]);
+
+	useEffect(() => {
+		let stps = [];
+		for (let i = 1; i <= rangeEnd; i++) {
+			if (i % 8 === 0) {
+				stps[i] = i;
+			}
+		}
+		setSteps(stps);
+
+	}, []);
+
+	console.log(colorClicked, steps);
+	return (
+		<div className="app">
+			<h1 style={{ color: `rgb(${colorClicked})` }}>
+				{colorClicked.length
+					? `Selected color code is RGB( ${colorClicked})`
+					: "Click on the color to get the RGB color code"}
+			</h1>
+			<div className="canvas">
+
+				{steps.map(r => {
+					return steps.map(g => {
+						return steps.map(b => {
+							return (
+								<span
+									onClick={() => setColorClicked(`${r}, ${g}, ${b}`)}
+									key={`${r}, ${g}, ${b}`}
+									style={{ backgroundColor: `rgb(${r}, ${g}, ${b})` }}
+								>
+									{" "}
+								</span>
+							);
+						});
+					});
+				})}
+			</div>
+		</div>
+	);
+};
 
 export default App;
+
