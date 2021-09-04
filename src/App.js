@@ -18,7 +18,7 @@ const App = () => {
 
 	}, []);
 
-	console.log(colorClicked, steps);
+	
 	return (
 		<div className="app">
 			<h1 style={{ color: `rgb(${colorClicked})` }}>
